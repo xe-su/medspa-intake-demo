@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Med Spa Revenue Audit — How Much Are You Losing to Slow Follow-Up?</title>
+  <meta name="description" content="Free 60-second audit for med spa owners. Find out how much revenue slow client response is costing you every month."/>
+  <meta property="og:title" content="Is Your Med Spa Losing $12K/Month in New Client Bookings?"/>
+  <meta property="og:description" content="Take the 60-second Med Spa Audit. Get your score and see exactly how many consultations you're missing."/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#0c080f;color:#f0f0f0;min-height:100vh}
+    .hero{background:linear-gradient(135deg,#1a0828,#0c080f 60%,#160820);padding:60px 24px;text-align:center;border-bottom:1px solid #2d1040}
+    .hero .tag{display:inline-block;background:#1a0828;color:#e879f9;border:1px solid #a855f7;border-radius:20px;padding:6px 16px;font-size:13px;margin-bottom:24px;letter-spacing:.5px}
+    .hero h1{font-size:clamp(26px,4vw,48px);font-weight:800;color:#fff;margin-bottom:16px;line-height:1.2}
+    .hero h1 span{background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero p{font-size:17px;color:#94a3b8;max-width:560px;margin:0 auto 8px}
+    .hero .sub{font-size:13px;color:#5b3a6e;margin-top:8px}
+    .quiz-wrap{max-width:640px;margin:40px auto;padding:0 24px 80px}
+    .question{background:#130a1c;border:1px solid #2d1a40;border-radius:16px;padding:32px;display:none}
+    .question.active{display:block;animation:fadeIn 0.4s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .q-num{font-size:12px;color:#5b3a6e;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+    .q-text{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.4}
+    .q-sub{font-size:14px;color:#5b3a6e;margin-bottom:24px}
+    .options{display:flex;flex-direction:column;gap:10px}
+    .opt{background:#1c0f2a;border:1px solid #2d1a40;border-radius:10px;padding:16px 20px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:12px}
+    .opt:hover{border-color:#a855f7;background:#230f35}
+    .opt .icon{font-size:22px;flex-shrink:0}
+    .opt .label{font-size:15px;font-weight:600;color:#e2e8f0}
+    .opt .desc{font-size:12px;color:#5b3a6e;margin-top:2px}
+    .progress{background:#1c0f2a;border-radius:999px;height:5px;margin-bottom:32px;overflow:hidden}
+    .progress-fill{background:linear-gradient(90deg,#9333ea,#ec4899);height:100%;border-radius:999px;transition:width 0.5s ease;box-shadow:0 0 8px #a855f755}
+
+    /* Results */
+    .result{display:none;animation:fadeIn 0.5s ease}
+    .result.active{display:block}
+    .score-card{background:#130a1c;border:1px solid #2d1a40;border-radius:16px;padding:36px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
+    .score-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#9333ea,#ec4899,#f9a8d4)}
+    .grade{font-size:80px;font-weight:900;line-height:1}
+    .grade.A{color:#a855f7} .grade.B{color:#eab308} .grade.C{color:#f97316} .grade.D{color:#ef4444}
+    .grade-label{font-size:16px;color:#94a3b8;margin-top:8px}
+    .grade-sub{font-size:13px;color:#5b3a6e;margin-top:4px}
+    .loss-box{background:#180a0a;border:1px solid #7f1d1d;border-radius:12px;padding:28px;margin:20px 0;text-align:center;position:relative;overflow:hidden}
+    .loss-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,#2d080820 0%,transparent 70%)}
+    .loss-box .amount{font-size:52px;font-weight:900;color:#ef4444;letter-spacing:-1px}
+    .loss-box .label{font-size:14px;color:#9ca3af;margin-top:6px}
+    .loss-box .sublabel{font-size:12px;color:#6b7280;margin-top:4px}
+    .insights{display:flex;flex-direction:column;gap:12px;margin:24px 0}
+    .insight{background:#1c0f2a;border:1px solid #2d1a40;border-radius:10px;padding:16px 20px;display:flex;gap:16px;align-items:flex-start}
+    .insight .ico{font-size:24px;flex-shrink:0}
+    .insight .text{font-size:14px;color:#d1d5db;line-height:1.6}
+    .insight .text strong{color:#fff}
+    .cta-box{background:linear-gradient(135deg,#1a0828,#1f0a30);border:1px solid #a855f7;border-radius:16px;padding:36px;text-align:center}
+    .cta-box h2{font-size:24px;font-weight:700;margin-bottom:12px;color:#fff}
+    .cta-box p{color:#94a3b8;margin-bottom:24px;font-size:15px;line-height:1.6}
+    .btn{display:inline-block;background:linear-gradient(135deg,#9333ea,#ec4899);color:#fff;font-weight:700;font-size:17px;padding:16px 36px;border-radius:8px;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s;box-shadow:0 4px 20px #a855f733}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 28px #a855f755}
+    .btn-ghost{background:transparent;border:1px solid #2d1a40;color:#94a3b8;margin-left:12px;font-size:15px;padding:14px 28px;box-shadow:none}
+    .btn-ghost:hover{border-color:#a855f7;color:#e879f9;transform:none}
+    .share-line{margin-top:20px;font-size:13px;color:#5b3a6e}
+    .benchmark{background:#0f0718;border:1px solid #4c1d95;border-radius:10px;padding:16px 20px;margin:16px 0;font-size:13px;color:#d8b4fe;line-height:1.6}
+    .stats-row{display:flex;gap:12px;margin:20px 0}
+    .stat-box{flex:1;background:#130a1c;border:1px solid #2d1a40;border-radius:10px;padding:16px;text-align:center}
+    .stat-box .num{font-size:24px;font-weight:800;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat-box .lbl{font-size:11px;color:#5b3a6e;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+    input,textarea{width:100%;background:#1c0f2a;border:1px solid #2d1a40;border-radius:8px;padding:14px 16px;color:#f0f0f0;font-size:15px;outline:none;font-family:inherit;transition:border 0.2s}
+    input:focus,textarea:focus{border-color:#a855f7}
+    input::placeholder,textarea::placeholder{color:#5b3a6e}
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">✨ Free 60-Second Audit</div>
+  <h1>Is Your Med Spa Losing <span>$12K/Month</span> in New Client Bookings?</h1>
+  <p>Answer 5 quick questions. Get your revenue score and see exactly where clients are slipping away.</p>
+  <div class="sub">Used by 100+ med spa owners • No signup required • Takes 60 seconds</div>
+</div>
+
+<div class="quiz-wrap">
+  <div class="progress"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+
+  <!-- Q1 -->
+  <div class="question active" id="q1">
+    <div class="q-num">Question 1 of 5</div>
+    <div class="q-text">How fast do you respond to new client inquiries?</div>
+    <div class="q-sub">Speed is the single biggest factor in booking new consultations</div>
+    <div class="options">
+      <div class="opt" onclick="answer(1,'A',10)"><div class="icon">⚡</div><div><div class="label">Within 5 minutes</div><div class="desc">Automated or team member always available</div></div></div>
+      <div class="opt" onclick="answer(1,'B',7)"><div class="icon">🕐</div><div><div class="label">Within an hour</div><div class="desc">Someone checks messages frequently</div></div></div>
+      <div class="opt" onclick="answer(1,'C',3)"><div class="icon">📅</div><div><div class="label">Same day</div><div class="desc">We get to it when there's a break</div></div></div>
+      <div class="opt" onclick="answer(1,'D',0)"><div class="icon">😬</div><div><div class="label">Often next day or later</div><div class="desc">Busy spa floor, messages pile up</div></div></div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question" id="q2">
+    <div class="q-num">Question 2 of 5</div>
+    <div class="q-text">What happens when someone texts about Botox at 9 PM?</div>
+    <div class="q-sub">Evening inquiries are high-intent — these clients are ready to book</div>
+    <div class="options">
+      <div class="opt" onclick="answer(2,'A',10)"><div class="icon">🤖</div><div><div class="label">AI responds instantly</div><div class="desc">Automated system qualifies and offers booking</div></div></div>
+      <div class="opt" onclick="answer(2,'B',6)"><div class="icon">📲</div><div><div class="label">Staff responds later that night</div><div class="desc">Someone checks messages before bed</div></div></div>
+      <div class="opt" onclick="answer(2,'C',2)"><div class="icon">☀️</div><div><div class="label">They see it next morning</div><div class="desc">First thing when we open</div></div></div>
+      <div class="opt" onclick="answer(2,'D',0)"><div class="icon">💸</div><div><div class="label">We lose them</div><div class="desc">No coverage — they book somewhere else</div></div></div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question" id="q3">
+    <div class="q-num">Question 3 of 5</div>
+    <div class="q-text">How many new client consultations do you book per month?</div>
+    <div class="q-sub">This helps us calculate your actual revenue impact</div>
+    <div class="options">
+      <div class="opt" onclick="answer(3,'xl',50)"><div class="icon">💎</div><div><div class="label">50+ consultations/month</div><div class="desc">Established spa with strong marketing</div></div></div>
+      <div class="opt" onclick="answer(3,'lg',30)"><div class="icon">💄</div><div><div class="label">20–50 consultations/month</div><div class="desc">Good flow of new clients</div></div></div>
+      <div class="opt" onclick="answer(3,'md',14)"><div class="icon">✨</div><div><div class="label">10–20 consultations/month</div><div class="desc">Mostly referrals and organic</div></div></div>
+      <div class="opt" onclick="answer(3,'sm',6)"><div class="icon">🌱</div><div><div class="label">Under 10 consultations/month</div><div class="desc">Growing or newer spa</div></div></div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question" id="q4">
+    <div class="q-num">Question 4 of 5</div>
+    <div class="q-text">How consistently do you mention current promotions to new inquiries?</div>
+    <div class="q-sub">Promotions increase booking rates by 40%+ when mentioned proactively</div>
+    <div class="options">
+      <div class="opt" onclick="answer(4,'A',10)"><div class="icon">🎯</div><div><div class="label">Every single conversation</div><div class="desc">Automated or trained staff — it never gets missed</div></div></div>
+      <div class="opt" onclick="answer(4,'B',7)"><div class="icon">👍</div><div><div class="label">Most of the time</div><div class="desc">Staff usually remembers to mention it</div></div></div>
+      <div class="opt" onclick="answer(4,'C',3)"><div class="icon">🤔</div><div><div class="label">When we remember</div><div class="desc">Inconsistent — depends on who answers</div></div></div>
+      <div class="opt" onclick="answer(4,'D',0)"><div class="icon">🙈</div><div><div class="label">We have no system for this</div><div class="desc">Promos just sit on our website/Instagram</div></div></div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question" id="q5">
+    <div class="q-num">Question 5 of 5</div>
+    <div class="q-text">What's your consultation-to-booking conversion rate?</div>
+    <div class="q-sub">Industry top performers convert 70%+ of consultations to paid bookings</div>
+    <div class="options">
+      <div class="opt" onclick="answer(5,'A',10)"><div class="icon">🏆</div><div><div class="label">Over 70%</div><div class="desc">Strong follow-up and consultation process</div></div></div>
+      <div class="opt" onclick="answer(5,'B',6)"><div class="icon">📈</div><div><div class="label">50–70%</div><div class="desc">Good conversion, room to tighten</div></div></div>
+      <div class="opt" onclick="answer(5,'C',2)"><div class="icon">📉</div><div><div class="label">30–50%</div><div class="desc">Significant revenue being left behind</div></div></div>
+      <div class="opt" onclick="answer(5,'D',0)"><div class="icon">❓</div><div><div class="label">Under 30% or unsure</div><div class="desc">No tracking or major conversion issues</div></div></div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="result" id="result">
+    <div class="score-card">
+      <div class="grade" id="grade-letter">C</div>
+      <div class="grade-label" id="grade-label">Revenue Score</div>
+      <div class="grade-sub" id="grade-sub">Calculating your loss...</div>
+    </div>
+
+    <div class="loss-box">
+      <div class="amount" id="loss-amount">$8,400</div>
+      <div class="label">Estimated monthly revenue slipping through the cracks</div>
+      <div class="sublabel" id="loss-sublabel">Based on your consultation volume and conversion gaps</div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box"><div class="num" id="clients-lost">8</div><div class="lbl">Clients Lost / Month</div></div>
+      <div class="stat-box"><div class="num" id="annual-loss">$100K</div><div class="lbl">Annual Revenue Loss</div></div>
+      <div class="stat-box"><div class="num">4 min</div><div class="lbl">Top Spa Avg Reply</div></div>
+    </div>
+
+    <div class="benchmark">
+      💅 <strong>Industry data:</strong> Med spas that respond within 5 minutes are <strong>4x more likely to book the consultation</strong> compared to those who respond the next day. 62% of clients book with the first spa that responds.
+    </div>
+
+    <div class="insights" id="insights"></div>
+
+    <div class="cta-box">
+      <h2>Turn Inquiries Into Booked Clients — Automatically</h2>
+      <p>We build AI client response systems built specifically for med spas — respond instantly to Botox, filler, and laser inquiries 24/7, mention your current promos, and book consultations while you focus on clients. Most spas recover the cost in the first week.</p>
+      <a href="demo.html" class="btn">See Live Demo First →</a>
+      <a href="#contact-form" class="btn btn-ghost" onclick="document.getElementById('contact-form').style.display='block'">Get My Custom Quote</a>
+      <div class="share-line">Share your score: <a href="#" onclick="shareScore(event)" style="color:#a855f7">Copy link</a></div>
+    </div>
+  </div>
+
+  <!-- Contact form -->
+  <div id="contact-form" style="margin-top:40px;display:none">
+    <div style="background:#130a1c;border:1px solid #2d1a40;border-radius:16px;padding:32px">
+      <h3 style="margin-bottom:8px;font-size:20px;color:#fff">Get Your Custom Recovery Plan</h3>
+      <p style="font-size:14px;color:#5b3a6e;margin-bottom:20px">We'll show you exactly how many clients you can recover and what it costs to fix it.</p>
+      <form id="auditContactForm" style="display:flex;flex-direction:column;gap:12px">
+        <input type="text" id="ac-name" placeholder="Your name" required>
+        <input type="email" id="ac-email" placeholder="Business email" required>
+        <input type="tel" id="ac-phone" placeholder="Phone number">
+        <input type="text" id="ac-company" placeholder="Spa name">
+        <button type="submit" style="background:linear-gradient(135deg,#9333ea,#ec4899);color:#fff;border:none;border-radius:8px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;transition:opacity 0.2s">Get My Custom Quote →</button>
+        <p id="ac-status" style="text-align:center;color:#e879f9;display:none;font-size:14px">✓ Sent! We'll reach out within a few hours with your custom plan.</p>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const answers = {};
+let consultVolume = 14;
+
+function answer(q, val, score) {
+  answers[q] = {val, score};
+  if (q === 3) consultVolume = score;
+
+  const prog = Math.min(q * 20, 100);
+  document.getElementById('prog').style.width = prog + '%';
+  document.getElementById('q'+q).classList.remove('active');
+
+  if (q < 5) {
+    setTimeout(() => document.getElementById('q'+(q+1)).classList.add('active'), 120);
+  } else {
+    setTimeout(showResult, 250);
+  }
+}
+
+function showResult() {
+  document.getElementById('prog').style.width = '100%';
+
+  const scoreKeys = [1, 2, 4, 5];
+  const total = scoreKeys.reduce((sum, k) => sum + (answers[k]?.score || 0), 0);
+  const maxScore = 40;
+  const pct = total / maxScore;
+
+  let grade, gradeLabel, gradeSub, missRate;
+  if (pct >= 0.85) {
+    grade = 'A'; gradeLabel = 'Excellent — Client Journey Optimized'; gradeSub = 'Your client acquisition process is top tier'; missRate = 0.05;
+  } else if (pct >= 0.65) {
+    grade = 'B'; gradeLabel = 'Good — Small Gaps to Close'; gradeSub = 'A few tweaks could meaningfully lift revenue'; missRate = 0.18;
+  } else if (pct >= 0.40) {
+    grade = 'C'; gradeLabel = 'Below Average — Leaking Clients'; gradeSub = 'Competing spas are booking your warm leads'; missRate = 0.35;
+  } else {
+    grade = 'D'; gradeLabel = 'Critical — Major Revenue Drain'; gradeSub = 'Significant monthly revenue is being lost to slow response'; missRate = 0.58;
+  }
+
+  document.getElementById('grade-letter').textContent = grade;
+  document.getElementById('grade-letter').className = 'grade ' + grade;
+  document.getElementById('grade-label').textContent = gradeLabel;
+  document.getElementById('grade-sub').textContent = gradeSub;
+
+  const avgClientValue = 480; // avg consultation/treatment value
+  const clientsLost = Math.round(consultVolume * missRate);
+  const monthlyLoss = Math.round(clientsLost * avgClientValue / 100) * 100;
+  const annualLoss = monthlyLoss * 12;
+
+  document.getElementById('loss-amount').textContent = '$' + monthlyLoss.toLocaleString();
+  document.getElementById('loss-sublabel').textContent = `Based on ${consultVolume} consultations/month at $${avgClientValue} avg client value`;
+  document.getElementById('clients-lost').textContent = Math.max(clientsLost, 1);
+  document.getElementById('annual-loss').textContent = '$' + (annualLoss >= 100000 ? (annualLoss/1000).toFixed(0)+'K' : annualLoss.toLocaleString());
+
+  const insights = [];
+  if (answers[1]?.score < 7) insights.push({ico:'⚡', text:'<strong>Slow response is your biggest leak.</strong> A client texting about Botox or filler is comparison shopping. They send messages to 2-3 spas and book with whoever responds first. Every hour you wait, the probability drops sharply.'});
+  if (answers[2]?.score < 6) insights.push({ico:'🌙', text:'<strong>Evening is prime booking time.</strong> Most clients research cosmetic treatments after work — 45% of inquiries arrive after 7 PM. Without coverage, these high-intent leads are going straight to your competitors.'});
+  if (answers[4]?.score < 6) insights.push({ico:'🎁', text:'<strong>Promo mentions drive urgency.</strong> Clients who hear about a current offer are 40% more likely to book immediately rather than "think about it." When this isn\'t consistent, you\'re leaving easy bookings on the table every day.'});
+  if (answers[5]?.score < 6) insights.push({ico:'🔄', text:'<strong>Conversion rate is the hidden multiplier.</strong> Going from 35% to 65% conversion on your existing consultations doubles your revenue without spending more on marketing. This is the fastest path to growth.'});
+  if (insights.length === 0) insights.push({ico:'✨', text:'Your process is top tier! Even still, AI-powered follow-up typically finds 10-20% more bookings by catching edge cases — late-night leads, clients who went quiet, and upsell opportunities during consultations.'});
+
+  document.getElementById('insights').innerHTML = insights.map(i =>
+    `<div class="insight"><div class="ico">${i.ico}</div><div class="text">${i.text}</div></div>`
+  ).join('');
+
+  document.getElementById('result').classList.add('active');
+  document.getElementById('contact-form').style.display = 'block';
+  setTimeout(() => document.getElementById('result').scrollIntoView({behavior:'smooth', block:'start'}), 100);
+}
+
+function shareScore() {
+  event.preventDefault();
+  navigator.clipboard.writeText(window.location.href)
+    .then(() => alert('Link copied! Share with other spa owners.'))
+    .catch(() => {});
+}
+
+document.getElementById('auditContactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  try {
+    await fetch('http://139.84.176.158:7777/contact', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: document.getElementById('ac-name').value,
+        email: document.getElementById('ac-email').value,
+        phone: document.getElementById('ac-phone').value,
+        message: `MedSpa Audit — Grade: ${document.getElementById('grade-letter').textContent} | Loss: ${document.getElementById('loss-amount').textContent}/mo | Consultations: ${consultVolume}/mo | Spa: ${document.getElementById('ac-company').value}`,
+        source: 'medspa-audit'
+      })
+    });
+    document.getElementById('ac-status').style.display = 'block';
+    this.reset();
+  } catch(err) {
+    document.getElementById('ac-status').textContent = '✓ Got it! We\'ll be in touch soon.';
+    document.getElementById('ac-status').style.display = 'block';
+  }
+  btn.disabled = false; btn.textContent = 'Get My Custom Quote →';
+});
+</script>
+</body>
+</html>
